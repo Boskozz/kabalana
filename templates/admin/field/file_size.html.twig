@@ -1,0 +1,10 @@
+{% if field.value is defined and field.value > 0 %}
+    {% set sizeInKo = (field.value / 1024)|round(1) %}
+    {% if sizeInKo > 1000 %}
+        {{ (sizeInKo / 1000)|round(1) }} Mo
+    {% else %}
+        {{ sizeInKo }} Ko
+    {% endif %}
+{% else %}
+    <span class="text-muted">-</span>
+{% endif %}

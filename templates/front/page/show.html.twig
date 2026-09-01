@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Alexandra Kabalan - {{ page.title }}{% endblock %}
+
+{% block body %}
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="display-3 text-center mb-3">{{ page.title }}</h1>
+        </div>
+    </div>
+    <!-- Contenu de la page -->
+    <div class="page-content">
+        {% for rangee in page.blocs|en_rangees %}
+            {% set multi = rangee|length > 1 or (rangee|first).width < 12 %}
+            {% if multi %}<div class="row g-4">{% endif %}
+                {% for item in rangee %}
+                    {% set bloc = item.bloc %}
+                    {% if multi %}<div class="col-md-{{ item.width }}">{% endif %}
+                        <div class="bloc-wrapper {{ bloc.cssClass|default('') }}"
+                             data-article="{{ bloc.articleNumber|default('') }}"
+                             data-bloc="{{ bloc.blocNumber|default('') }}">
+
+                            {# Afficher le numéro d'article si présent - DEV #}
+                            {# {% if bloc.articleNumber %}
+                                <div class="article-marker text-muted small">
+                                    <i class="bi bi-hash"></i>
+                                    Article {{ bloc.articleNumber }}
+                                    {% if bloc.blocNumber %}
+                                        - Bloc {{ bloc.blocNumber }}
+                                    {% endif %}
+                                </div>
+                            {% endif %} #}
+
+                            {{ render_bloc(bloc) }}
+                        </div>
+                    {% if multi %}</div>{% endif %}
+                {% endfor %}
+            {% if multi %}</div>{% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

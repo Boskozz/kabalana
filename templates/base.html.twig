@@ -1,24 +1,192 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Alexandra Kabalan
+			{% endblock %}
+		</title>
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1.0">
 
-        {% set frankenphp_hot_reload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
-        {% if frankenphp_hot_reload %}
-        <meta name="frankenphp-hot-reload:url" content="{{ frankenphp_hot_reload }}">
-        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-        {% endif %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+		{# Meta description générique à surcharger ensuite #}
+		<meta
+		name="description" content="{% block meta_description %}Description !!!!{% endblock %}">
+		{# Open Graph (réseaux sociaux) #}
+		<meta property="og:title" content="{% block og_title %}{% block og_title_fallback %}Alexandra Kabalan{% endblock %}{% endblock %}">
+		<meta property="og:description" content="{% block og_description %}{% endblock %}">
+		<meta property="og:type" content="website">
+		<!-- <meta property="og:url" content="https://pascale-wlomainck-psychologue.be/{{ current_path|default('/') }}">
+								        <meta property="og:image" content="https://pascale-wlomainck-psychologue.be/assets/images/og-default.jpg"> -->
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"> -->
+		<link
+		rel="icon" href="/favicon.ico" type="image/x-icon"> <!-- Bootstrap 5 -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link
+		rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+		<!-- Google Fonts -->
+		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"> {% block stylesheets %}{% endblock %}
+
+
+		{% set frankenphp_hot_reload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
+		{% if frankenphp_hot_reload %}
+			<meta name="frankenphp-hot-reload:url" content="{{ frankenphp_hot_reload }}">
+			<script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
+			<script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
+		{% endif %}
+	</head>
+	<body>
+		{% set page = page|default(null) %}
+		<div class="page">
+		<header class="site-header">
+			<nav class="navbar navbar-expand-lg">
+				<div class="container-fluid">
+					<div class="logo">
+						<a href="{{ path('app_home') }}" class="logo">
+							<!-- A --><div class="liglogo"></div>
+							<div class="liglogo"></div>
+							<div class="liglogo"></div>
+							<!-- K -->
+							<div class="liglogo"></div>
+							<div class="liglogo"></div>
+							<div class="liglogo"></div>
+						</a>
+					</div>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Ouvrir la navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav navigation">
+							{% for item in main_menu() %}
+								<li class="nav-item {{ item.children|length > 0 ? 'dropdown' : '' }}">
+									<a href="{{ path(item.url, item.params) }}" class="nav-link {{ page and page.section == item.section ? 'active' : '' }}{{ item.children|length > 0 ? ' dropdown-toggle' : '' }}">{{ item.label }}</a>
+									{% if item.children|length > 0 %}
+										<ul class="dropdown-menu">
+											{% for child in item.children %}
+												{% if child.children|length > 0 %}
+													<li class="dropdown-submenu">
+														<a href="{{ path(child.url, child.params) }}" class="dropdown-item dropdown-toggle">{{ child.label }}</a>
+														<ul class="dropdown-menu">
+															{% for sub in child.children %}
+																<li>
+																	<a href="{{ path(sub.url, sub.params) }}" class="dropdown-item">{{ sub.label }}</a>
+																</li>
+															{% endfor %}
+														</ul>
+													</li>
+												{% else %}
+													<li>
+														<a href="{{ path(child.url, child.params) }}" class="dropdown-item">{{ child.label }}</a>
+													</li>
+												{% endif %}
+											{% endfor %}
+										</ul>
+									{% endif %}
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+					{% if app.user %}
+						<a href="{{ path('app_logout') }}" class="auth-dot auth-dot-online" title="Connecté — se déconnecter" aria-label="Se déconnecter"></a>
+					{% else %}
+						<a href="{{ path('app_login') }}" class="auth-dot auth-dot-offline" title="Déconnecté — se connecter" aria-label="Se connecter"></a>
+					{% endif %}
+					<button type="button" class="mandala-btn" data-bs-toggle="modal" data-bs-target="#mandalaMenu" aria-label="Ouvrir le menu mandala">
+						<i class="bi bi-brightness-high"></i>
+					</button>
+				</div>
+			</nav>
+		</header>
+
+			<main class="site-content">
+				<div class="site-body"> {% block body %}{% endblock %}</div>
+
+			</main>
+
+			<footer class="site-footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4">
+							<h5>🎭
+							</h5>
+							<p class="text-muted">Artiste polyvalente : philosophe, musicienne, marionnettiste et thérapeute.</p>
+						</div>
+						<div class="col-md-4">
+							<h5>Liens rapides</h5>
+							<ul class="list-unstyled">
+								<li>
+									<a href="{{ path('app_page_show', {slug: 'philosophie'}) }}">Philosophie</a>
+								</li>
+								<li>
+									<a href="{{ path('app_page_show', {slug: 'musicienne'}) }}">Musicienne</a>
+								</li>
+								<li>
+									<a href="{{ path('app_page_show', {slug: 'marionnettiste'}) }}">Marionnettiste</a>
+								</li>
+								<li>
+									<a href="{{ path('app_page_show', {slug: 'therapeute'}) }}">Thérapeute</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-4">
+							<h5>Contact</h5>
+							<p>
+								<i class="bi bi-envelope"></i>
+								kabalanalexandra@gmail.com</p>
+							<p>
+								<i class="bi bi-phone"></i>
+								+32 484 279 252</p>
+						</div>
+					</div>
+					<hr class="border-secondary">
+					<p class="text-center text-muted mb-0">&copy;
+						{{ "now"|date("Y") }}
+						Alexandra Kabalan - Tous droits réservés</p>
+				</div>
+			</footer>
+
+			<!-- Menu mandala plein écran -->
+			<div class="modal fade" id="mandalaMenu" tabindex="-1" aria-hidden="true" aria-label="Menu mandala">
+				<div class="modal-dialog modal-fullscreen">
+					<div class="modal-content mandala-overlay">
+						<button type="button" class="btn-close btn-close-white mandala-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+						<div class="mandala-stage">
+							<div class="mandala">
+								<img src="{{ asset('mandala/mandala.webp') }}" alt="Mandala de navigation" loading="lazy">
+								<a href="{{ path('app_page_show', {slug: 'philosophie'}) }}" class="mandala-quadrant mandala-q1">
+									<span>Philosophe</span>
+								</a>
+								<a href="{{ path('app_page_show', {slug: 'musicienne'}) }}" class="mandala-quadrant mandala-q2">
+									<span>Musicienne</span>
+								</a>
+								<a href="{{ path('app_page_show', {slug: 'therapeute'}) }}" class="mandala-quadrant mandala-q3">
+									<span>Thérapeute</span>
+								</a>
+								<a href="{{ path('app_page_show', {slug: 'marionnettiste'}) }}" class="mandala-quadrant mandala-q4">
+									<span>Marionnettiste</span>
+								</a>
+								<a href="{{ path('app_home') }}" class="mandala-home">
+									<span>Accueil</span>
+								</a>
+							</div>
+							<a href="{{ path('app_page_show', {slug: 'contact'}) }}" class="mandala-contact">
+								<i class="bi bi-envelope"></i>
+								Contact
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Scripts -->
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		</div>
+			{% block javascripts %}
+				{% block importmap %}
+					{{ importmap('app') }}
+				{% endblock %}
+			{% endblock %}
+		</body>
+	</html>

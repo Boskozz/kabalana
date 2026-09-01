@@ -1,0 +1,22 @@
+{% set data = bloc.content|json_decode %}
+{% set liens = data.liens|default([]) %}
+{% if liens is empty and data.url is defined and data.url %}
+    {% set liens = [data] %}
+{% endif %}
+<div class="d-flex flex-wrap gap-3 justify-content-center my-4">
+    {% for lien in liens %}
+        {% set cible = lien.target|default('') %}
+        {% if cible is empty and lien.nouvelle_fenetre|default(false) %}
+            {% set cible = '_blank' %}
+        {% endif %}
+        <a href="{{ lien.url }}"
+           class="{{ lien.class|default('btn btn-outline-primary') }}"
+           {% if cible %}target="{{ cible }}"{% endif %}>
+            {% if lien.icone|default('') %}
+                <i class="bi bi-{{ lien.icone }}"></i>
+            {% endif %}
+            {{ lien.texte }}
+        </a>
+    {% endfor %}
+</div>
+

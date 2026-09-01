@@ -1,0 +1,30 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title %}Tableau de bord{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">📄 Pages</h5>
+                    <p class="card-text">Gérez toutes les pages du site</p>
+                    <a href="{{ path('admin', {crudAction: 'index', crudControllerFqcn: 'App\\Controller\\Admin\\PageCrudController'}) }}" class="btn btn-primary">
+                        Accéder aux pages
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">🧩 Blocs</h5>
+                    <p class="card-text">Gérez tous les blocs de contenu</p>
+                    <a href="{{ path('admin', {crudAction: 'index', crudControllerFqcn: 'App\\Controller\\Admin\\BlocCrudController'}) }}" class="btn btn-primary">
+                        Accéder aux blocs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

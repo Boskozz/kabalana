@@ -1,0 +1,13 @@
+.field-image img {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+}
+
+/* La colonne d'actions de ligne est déplacée en premier : on la garde étroite. */
+.datagrid td.actions {
+    width: 1%;
+    white-space: nowrap;
+    padding-right: 0;
+}
+

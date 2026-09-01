@@ -1,0 +1,20 @@
+{% set data = bloc.content|json_decode %}
+{% set images = data.images|default([]) %}
+{% set disposition = data.disposition|default('horizontal') %}
+
+<div class="gallery {{ data.class|default('') }}">
+    <div class="row g-4 justify-content-center">
+        {% for image in images %}
+            <div class="col-{% if disposition == 'horizontal' %}md-{{ 12 // images|length }}{% else %}12{% endif %}">
+                <figure class="text-center">
+                    <img src="{{ asset(image.url) }}" 
+                         alt="{{ image.alt|default('') }}" 
+                         class="{{ image.class|default('largeur-img-100') }}">  {# 👈 ICI : w-50 = 50% de la largeur #}
+                    {% if image.legende is defined and image.legende %}
+                        <figcaption>{{ image.legende }}</figcaption>
+                    {% endif %}
+                </figure>
+            </div>
+        {% endfor %}
+    </div>
+</div>

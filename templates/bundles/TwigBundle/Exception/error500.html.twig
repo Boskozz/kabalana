@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur interne - Alexandra Kabalan{% endblock %}
+
+{% block body %}
+	<div class="error-page">
+		<img src="{{ asset('mandala/mandala-500.webp') }}" alt="" class="error-mandala">
+		<h1 class="error-title">{{ status_code }}</h1>
+		<p class="error-subtitle">Oups !</p>
+		<p class="error-message">Un petit contretemps technique est arrivé. Nous revenons très vite, patientez un instant.</p>
+		<a href="{{ path('app_home') }}" class="btn btn-primary error-button">
+			<i class="bi bi-house-door"></i>
+			Retour à l'accueil
+		</a>
+	</div>
+{% endblock %}

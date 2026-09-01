@@ -1,0 +1,10 @@
+{% set data = bloc.content|json_decode %}
+<div class="document-wrapper my-4 {{ data.class|default('') }}">
+    <a href="{{ asset(data.file) }}" target="_blank" class="btn btn-outline-primary">
+        <i class="bi bi-{{ data.icone|default('file-earmark') }}"></i>
+        {{ data.title|default('Télécharger le document') }}
+    </a>
+    {% if data.legende %}
+        <p class="text-muted small mt-1">{{ data.legende }}</p>
+    {% endif %}
+</div>

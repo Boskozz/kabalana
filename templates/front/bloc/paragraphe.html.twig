@@ -1,0 +1,4 @@
+{% set data = bloc.content|json_decode %}
+<p class="{{ data.class|default('') }}">
+    {{ data.texte|nl2br }}
+</p>

@@ -1,0 +1,4 @@
+{% set data = bloc.content|json_decode %}
+<{{ data.niveau|default('h2') }} class="{{ data.class|default('') }}">
+    {{ data.texte }}
+</{{ data.niveau|default('h2') }}>

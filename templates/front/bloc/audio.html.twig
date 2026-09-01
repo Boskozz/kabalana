@@ -1,0 +1,32 @@
+{% set data = bloc.content|json_decode %}
+{% set audioFile = data.file|default('') %}
+
+<div class="audio-wrapper my-4 {{ data.class|default('') }}">
+    {% if data.title %}
+        <h4 class="audio-title">{{ data.title }}</h4>
+    {% endif %}
+    
+    <div class="audio-player">
+        <audio controls style="width: 100%;" 
+               {% if data.autoplay|default(false) %}autoplay{% endif %}
+               {% if data.loop|default(false) %}loop{% endif %}>
+            {% if bloc.requiredRole %}
+                <source src="{{ path('app_bloc_audio', {id: bloc.id}) }}" type="audio/mpeg">
+            {% else %}
+                <source src="{{ asset(audioFile) }}" type="audio/mpeg">
+            {% endif %}
+            Votre navigateur ne supporte pas la lecture audio.
+        </audio>
+    </div>
+    
+    {% if data.legende|default('') %}
+        <p class="text-center text-muted small mt-2">{{ data.legende }}</p>
+    {% endif %}
+    
+    {% if data.transcription|default('') %}
+        <div class="audio-transcription mt-3 p-3 bg-light rounded">
+            <strong>Transcription :</strong>
+            <p class="mb-0">{{ data.transcription }}</p>
+        </div>
+    {% endif %}
+</div>

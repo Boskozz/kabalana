@@ -1,0 +1,15 @@
+{# Décoder le contenu JSON en tableau #}
+{% set data = bloc.content|json_decode %}
+
+<div class="video-wrapper my-4 {{ data.class|default('') }}">
+    <div class="ratio ratio-16x9">
+        <iframe src="{{ data.url }}" 
+                title="{{ data.legende|default('Vidéo') }}"
+                allowfullscreen>
+        </iframe>
+    </div>
+    {% if data.legende %}
+        <p class="text-center text-muted mt-2">{{ data.legende }}</p>
+    {% endif %}
+</div>
+               
