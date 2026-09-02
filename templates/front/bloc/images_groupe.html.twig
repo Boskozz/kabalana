@@ -2,7 +2,7 @@
 {% set images = data.images|default([]) %}
 {% set disposition = data.disposition|default('horizontal') %}
 
-<div class="gallery {{ data.class|default('') }}">
+<div class="gallery {{ data.class|default('') }}" data-controller="lightbox">
     <div class="row g-4 justify-content-center">
         {% for image in images %}
             <div class="col-{% if disposition == 'horizontal' %}md-{{ 12 // images|length }}{% else %}12{% endif %}">

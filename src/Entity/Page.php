@@ -22,6 +22,9 @@ class Page
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $metaDescription = null;
+
     #[ORM\Column(length: 100)]
     private ?string $section = null;
 
@@ -70,6 +73,9 @@ class Page
 
     public function getTitle(): ?string { return $this->title; }
     public function setTitle(string $title): self { $this->title = $title; return $this; }
+
+    public function getMetaDescription(): ?string { return $this->metaDescription; }
+    public function setMetaDescription(?string $metaDescription): self { $this->metaDescription = $metaDescription; return $this; }
 
     public function getSection(): ?string { return $this->section; }
     public function setSection(string $section): self { $this->section = $section; return $this; }

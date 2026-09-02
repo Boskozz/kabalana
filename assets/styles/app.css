@@ -399,6 +399,34 @@ img {
   background: #ffffff;
 }
 
+/* Lightbox plein écran */
+.lightbox-content {
+  background: rgba(0, 0, 0, 0.92);
+  border: none;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.lightbox-image {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 10;
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
+
 /* Contact sous le mandala */
 .mandala-contact {
   display: inline-flex;
@@ -640,6 +668,9 @@ img {
 .img-arrondie       { border-radius: 12px !important; }
 .img-ombre          { box-shadow: var(--shadow-soft) !important; }
 .img-pleine-largeur { width: 100% !important; height: auto !important; }
+
+/* Les images des galeries sont cliquables (lightbox) */
+.gallery img { cursor: pointer; }
 
 /* ---------- LIENS / BOUTONS ---------- */
 .lien-gauche { justify-content: flex-start !important; }

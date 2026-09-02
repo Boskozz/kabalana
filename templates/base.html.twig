@@ -7,24 +7,21 @@
 			{% block title %}Alexandra Kabalan
 			{% endblock %}
 		</title>
-		<meta
-		name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		{# Meta description générique à surcharger ensuite #}
-		<meta
-		name="description" content="{% block meta_description %}Description !!!!{% endblock %}">
+		<meta name="description" content="{% block meta_description %}Découvrez l'univers d'Alexandra Kabalan : musique, marionnettes, philosophie et thérapie au service d'un accompagnement humain et créatif.{% endblock %}">
 		{# Open Graph (réseaux sociaux) #}
 		<meta property="og:title" content="{% block og_title %}{% block og_title_fallback %}Alexandra Kabalan{% endblock %}{% endblock %}">
 		<meta property="og:description" content="{% block og_description %}{% endblock %}">
 		<meta property="og:type" content="website">
-		<!-- <meta property="og:url" content="https://pascale-wlomainck-psychologue.be/{{ current_path|default('/') }}">
-								        <meta property="og:image" content="https://pascale-wlomainck-psychologue.be/assets/images/og-default.jpg"> -->
+		<meta property="og:url" content="https://alexandra-kabalan.be/{{ current_path|default('/') }}">
+			<meta property="og:image" content="{{ absolute_url('/images/og-default.jpg') }}"> 
 		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"> -->
 		<link
 		rel="icon" href="/favicon.ico" type="image/x-icon"> <!-- Bootstrap 5 -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-		<link
-		rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 		<!-- Google Fonts -->
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"> {% block stylesheets %}{% endblock %}
@@ -176,6 +173,16 @@
 								Contact
 							</a>
 						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Lightbox : aperçu d'une image en plein écran -->
+			<div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true" aria-label="Aperçu de l'image">
+				<div class="modal-dialog modal-dialog-centered modal-fullscreen">
+					<div class="modal-content lightbox-content">
+						<button type="button" class="btn-close btn-close-white lightbox-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+						<img src="" alt="" class="lightbox-image">
 					</div>
 				</div>
 			</div>

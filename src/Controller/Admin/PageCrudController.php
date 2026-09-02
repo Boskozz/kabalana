@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use App\Repository\PageRepository;
 
@@ -43,6 +44,10 @@ class PageCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('title', 'Titre'),
             TextField::new('slug', 'Slug')->setHelp('URL de la page'),
+            TextareaField::new('metaDescription', 'Meta description (SEO)')
+                ->setHelp('Résumé de la page affiché dans les résultats de recherche (~150-160 caractères). Si vide, la description générique est utilisée.')
+                ->setRequired(false)
+                ->hideOnIndex(),
             ChoiceField::new('section', 'Section')
                 ->setChoices([
                     'Philosophe' => 'philosophe',
