@@ -14,6 +14,18 @@ if not errorlevel 1 (
     goto :end
 )
 
+echo Fichiers qui vont etre commites :
+echo ------------------------------------
+git diff --cached --stat
+echo ------------------------------------
+echo.
+
+set /p CONFIRM="Continuer ? (O/N) "
+if /i not "%CONFIRM%"=="O" (
+    echo Annule par l'utilisateur.
+    goto :end
+)
+
 for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"') do set "DATETIME=%%i"
 
 git commit -m "Mise a jour du %DATETIME%"
