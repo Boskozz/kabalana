@@ -1,0 +1,5 @@
+# Force les fins de ligne LF (format Unix/Linux) pour les fichiers
+# destinés à être exécutés sur le serveur, peu importe la plateforme
+# utilisée pour les éditer (Windows, Mac, Linux).
+
+*.sh text eol=lf

@@ -13,7 +13,7 @@ git pull origin main
 
 echo ""
 echo "📦 Vérification des dépendances Composer..."
-php composer.phar install --no-dev --optimize-autoloader
+php ~/composer.phar install --no-dev --optimize-autoloader
 
 echo ""
 read -p "🗄️  Appliquer les migrations Doctrine ? (o/n) " -n 1 -r
