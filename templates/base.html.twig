@@ -23,7 +23,9 @@
 
 		<!-- Google Fonts -->
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"> {% block stylesheets %}{% endblock %}
-
+		<!-- Info PWA léger -->
+		<link rel="manifest" href="/manifest.json">
+		<meta name="theme-color" content="#446584">
 
 		{% set frankenphp_hot_reload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
 		{% if frankenphp_hot_reload %}
