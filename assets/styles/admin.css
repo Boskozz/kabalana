@@ -11,3 +11,13 @@
     padding-right: 0;
 }
 
+/* La référence JSON s'affiche dans une modale placée dans le <small class="form-help">. */
+.form-help .modal {
+    font-size: 1rem;
+}
+
+.form-help .modal code {
+    white-space: normal;
+    word-break: break-word;
+}
+

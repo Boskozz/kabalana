@@ -13,11 +13,15 @@ git pull origin main
 
 echo ""
 echo "📦 Vérification des dépendances Composer..."
-composer install --no-dev --optimize-autoloader
+php composer.phar install --no-dev --optimize-autoloader
 
 echo ""
-echo "🗄️  Application des migrations Doctrine..."
-php bin/console doctrine:migrations:migrate --env=prod --no-interaction
+read -p "🗄️  Appliquer les migrations Doctrine ? (o/n) " -n 1 -r
+echo ""
+if [[ $REPLY =~ ^[Oo]$ ]]
+then
+    php bin/console doctrine:migrations:migrate --env=prod --no-interaction
+fi
 
 echo ""
 read -p "🎨 Recompiler les assets CSS/JS ? (o/n) " -n 1 -r

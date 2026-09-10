@@ -50,7 +50,7 @@ class Page
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'page', targetEntity: Bloc::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['position' => 'ASC'])]
+    #[ORM\OrderBy(['articleNumber' => 'ASC', 'blocNumber' => 'ASC'])]
     private Collection $blocs;
 
     public function __construct()
