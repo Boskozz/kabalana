@@ -58,24 +58,40 @@
 						<ul class="navbar-nav navigation">
 							{% for item in main_menu() %}
 								<li class="nav-item {{ item.children|length > 0 ? 'dropdown' : '' }}">
-									<a href="{{ path(item.url, item.params) }}" class="nav-link {{ page and page.section == item.section ? 'active' : '' }}{{ item.children|length > 0 ? ' dropdown-toggle' : '' }}">{{ item.label }}</a>
+									{% if item.clickable %}
+										<a href="{{ path(item.url, item.params) }}" class="nav-link {{ page and page.section == item.section ? 'active' : '' }}{{ item.children|length > 0 ? ' dropdown-toggle' : '' }}">{{ item.label }}</a>
+									{% else %}
+										<a role="button" tabindex="0" aria-haspopup="true" class="nav-link {{ page and page.section == item.section ? 'active' : '' }}{{ item.children|length > 0 ? ' dropdown-toggle' : '' }}">{{ item.label }}</a>
+									{% endif %}
 									{% if item.children|length > 0 %}
 										<ul class="dropdown-menu">
 											{% for child in item.children %}
 												{% if child.children|length > 0 %}
 													<li class="dropdown-submenu">
-														<a href="{{ path(child.url, child.params) }}" class="dropdown-item dropdown-toggle">{{ child.label }}</a>
+														{% if child.clickable %}
+															<a href="{{ path(child.url, child.params) }}" class="dropdown-item dropdown-toggle">{{ child.label }}</a>
+														{% else %}
+															<a role="button" tabindex="0" aria-haspopup="true" class="dropdown-item dropdown-toggle">{{ child.label }}</a>
+														{% endif %}
 														<ul class="dropdown-menu">
 															{% for sub in child.children %}
 																<li>
-																	<a href="{{ path(sub.url, sub.params) }}" class="dropdown-item">{{ sub.label }}</a>
+																	{% if sub.clickable %}
+																		<a href="{{ path(sub.url, sub.params) }}" class="dropdown-item">{{ sub.label }}</a>
+																	{% else %}
+																		<a role="button" tabindex="0" class="dropdown-item">{{ sub.label }}</a>
+																	{% endif %}
 																</li>
 															{% endfor %}
 														</ul>
 													</li>
 												{% else %}
 													<li>
-														<a href="{{ path(child.url, child.params) }}" class="dropdown-item">{{ child.label }}</a>
+														{% if child.clickable %}
+															<a href="{{ path(child.url, child.params) }}" class="dropdown-item">{{ child.label }}</a>
+														{% else %}
+															<a role="button" tabindex="0" class="dropdown-item">{{ child.label }}</a>
+														{% endif %}
 													</li>
 												{% endif %}
 											{% endfor %}
@@ -131,10 +147,10 @@
 							<h5>Contact</h5>
 							<p>
 								<i class="bi bi-envelope"></i>
-								kabalanalexandra@gmail.com</p>
+								<a href="mailto:kabalanalexandra@gmail.com">kabalanalexandra@gmail.com</a></p>
 							<p>
 								<i class="bi bi-phone"></i>
-								+32 484 279 252</p>
+								<a href="tel:+32484279252">+32 484 279 252</a></p>
 						</div>
 					</div>
 					<hr class="border-secondary">

@@ -107,6 +107,11 @@ img {
   border-radius: 30px 30px 60px 60px / 60px 60px 30px 30px;
 }
 
+/* Élément de menu sans lien : sert uniquement à ouvrir le sous-menu */
+.navigation a[role="button"] {
+  cursor: pointer;
+}
+
 .meta-item {
   padding: 6px 10px;
   border-radius: 999px;
@@ -673,6 +678,15 @@ img {
 .gallery img { cursor: pointer; }
 
 /* ---------- LIENS / BOUTONS ---------- */
+a {
+  color: var(--navbg);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--navhover);
+}
+
 .lien-gauche { justify-content: flex-start !important; }
 .lien-centre { justify-content: center !important; }
 .lien-droite { justify-content: flex-end !important; }

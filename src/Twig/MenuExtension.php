@@ -58,6 +58,7 @@ class MenuExtension extends AbstractExtension
                     'section' => $item['section'],
                     'url' => $item['url'],
                     'params' => $item['params'],
+                    'clickable' => true,
                     'children' => [],
                 ];
                 continue;
@@ -81,6 +82,7 @@ class MenuExtension extends AbstractExtension
                     'label' => $page->getTitle(),
                     'url' => 'app_page_show',
                     'params' => ['slug' => $page->getSlug()],
+                    'clickable' => !$page->isMenuWithoutLink(),
                     'children' => $this->buildSubChildren($page->getId(), $byParent),
                 ];
             }
@@ -90,6 +92,7 @@ class MenuExtension extends AbstractExtension
                 'section' => $item['section'],
                 'url' => 'app_page_show',
                 'params' => ['slug' => $root->getSlug()],
+                'clickable' => !$root->isMenuWithoutLink(),
                 'children' => $children,
             ];
         }
@@ -108,6 +111,7 @@ class MenuExtension extends AbstractExtension
                 'label' => $page->getTitle(),
                 'url' => 'app_page_show',
                 'params' => ['slug' => $page->getSlug()],
+                'clickable' => !$page->isMenuWithoutLink(),
                 'children' => [],
             ];
         }

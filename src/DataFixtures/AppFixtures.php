@@ -260,6 +260,7 @@ class AppFixtures extends Fixture
 
         // 3.1 Pianiste (section)
         $pianiste = $this->createPage('musicienne-pianiste', 'Pianiste', 'musicienne', 'section', 0, $musicienne);
+        $pianiste->setMenuWithoutLink(true);
         
         // Article 1 : Présentation
         $pianiste->addBloc($this->createBloc('titre', [

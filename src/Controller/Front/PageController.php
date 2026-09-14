@@ -27,22 +27,6 @@ class PageController extends AbstractController
         ]);
     }
 
-    
-    // #[Route('/contact', name: 'app_page_contact')]
-    // public function contact(EntityManagerInterface $em): Response {
-    //     $page = $em->getRepository(Page::class)->findOneBy([
-    //         'slug' => 'contact',
-    //         'isActive' => true
-    //     ]);
-
-    //     if (!$page) {
-    //         throw $this->createNotFoundException('Page non trouvée');
-    //     }
-    //     return $this->render('front/page/contact.html.twig', [
-    //         'page' => $page,
-    //     ]);
-    // }
-
     #[Route('/{slug}', name: 'app_page_show', requirements: ['slug' => '^(?!admin|login|logout|bloc|_wdt|_profiler|_error).+'])]
     public function show(string $slug, EntityManagerInterface $em): Response
     {

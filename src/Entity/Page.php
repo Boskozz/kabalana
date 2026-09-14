@@ -43,6 +43,9 @@ class Page
     #[ORM\Column(type: 'boolean')]
     private bool $isActive = true;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $menuWithoutLink = false;
+
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $createdAt = null;
 
@@ -58,6 +61,7 @@ class Page
         $this->blocs = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->isActive = true;
+        $this->menuWithoutLink = false;
     }
 
     public function __toString(): string
@@ -94,6 +98,9 @@ class Page
 
     public function isActive(): bool { return $this->isActive; }
     public function setIsActive(bool $isActive): self { $this->isActive = $isActive; return $this; }
+
+    public function isMenuWithoutLink(): bool { return $this->menuWithoutLink; }
+    public function setMenuWithoutLink(bool $menuWithoutLink): self { $this->menuWithoutLink = $menuWithoutLink; return $this; }
 
     public function getCreatedAt(): ?\DateTimeInterface { return $this->createdAt; }
     public function setCreatedAt(\DateTimeInterface $createdAt): self { $this->createdAt = $createdAt; return $this; }

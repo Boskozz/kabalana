@@ -82,6 +82,8 @@ class PageCrudController extends AbstractCrudController
                 ->setRequired(false),
             NumberField::new('position', 'Position'),
             BooleanField::new('isActive', 'Active'),
+            BooleanField::new('menuWithoutLink', 'Menu sans lien')
+                ->setHelp('Si coché, l’élément de menu ouvre uniquement le sous-menu (le clic ne mène pas à la page).'),
             DateTimeField::new('createdAt', 'Créé le')->hideOnForm(),
             DateTimeField::new('updatedAt', 'Modifié le')->hideOnForm(),
         ];
