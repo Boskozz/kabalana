@@ -30,6 +30,20 @@ class PageRepository extends ServiceEntityRepository
     }
 
     /**
+     * Trouve une page active par son identifiant.
+     * Utilisé pour remonter la chaîne des parents du fil d'Ariane.
+     */
+    public function findActiveById(int $id): ?Page
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :id')
+            ->andWhere('p.isActive = true')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
      * Retourne toutes les pages actives, triées par section puis position.
      * Utilisé pour construire l'arborescence du menu principal.
      */

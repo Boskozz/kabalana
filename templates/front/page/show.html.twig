@@ -6,6 +6,7 @@
 {% block og_description %}{{ page.metaDescription ?: parent() }}{% endblock %}
 
 {% block body %}
+    {% include 'front/partials/fil_ariane.html.twig' %}
     <div class="hero-section">
         <div class="container">
             <h1 class="display-3 text-center mb-3">{{ page.title }}</h1>

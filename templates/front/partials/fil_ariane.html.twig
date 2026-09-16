@@ -1,0 +1,38 @@
+{# Fil d'Ariane : affiché hors accueil, à partir du 2e niveau (profondeur > 1) #}
+{% if page is defined and page and page.section != 'home' %}
+    {% set fil = breadcrumb(page) %}
+    {% if fil|length > 2 %}
+        <div class="container">
+            <div class="fil-ariane" role="navigation" aria-label="Fil d'Ariane">
+                <ol class="fil-ariane-list">
+                    {% for item in fil %}
+                        <li class="fil-ariane-item{{ loop.last ? ' fil-ariane-current' : '' }}">
+                            {% if loop.last %}
+                                <span aria-current="page">{{ item.label }}</span>
+                            {% else %}
+                                <a href="{{ path(item.url, item.params) }}">{{ item.label }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+
+        {% set crumb_items = [] %}
+        {% for item in fil %}
+            {% set crumb_items = crumb_items|merge([{
+                '@type': 'ListItem',
+                'position': loop.index,
+                'name': item.label,
+                'item': absolute_url(path(item.url, item.params))
+            }]) %}
+        {% endfor %}
+        <script type="application/ld+json">
+        {{ {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': crumb_items
+        }|json_encode(constant('JSON_UNESCAPED_SLASHES') b-or constant('JSON_UNESCAPED_UNICODE'))|raw }}
+        </script>
+    {% endif %}
+{% endif %}

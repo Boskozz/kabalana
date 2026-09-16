@@ -24,6 +24,7 @@ class MenuExtension extends AbstractExtension
     {
         return [
             new TwigFunction('main_menu', [$this, 'getMainMenu']),
+            new TwigFunction('breadcrumb', [$this, 'getBreadcrumb']),
         ];
     }
 
@@ -98,6 +99,82 @@ class MenuExtension extends AbstractExtension
         }
 
         return $menu;
+    }
+
+    /**
+     * Construit le fil d'Ariane d'une page : Accueil > ...parents... > page courante.
+     * Retourne un tableau de ['label' => string, 'url' => string, 'params' => array].
+     * Renvoie un tableau vide pour la page d'accueil.
+     */
+    public function getBreadcrumb(Page $page): array
+    {
+        if ($page->getSection() === 'home') {
+            return [];
+        }
+
+        try {
+            $trail = [];
+            $current = $page;
+            $guard = 0;
+
+            while ($current !== null && $guard++ < 10) {
+                $trail[] = [
+                    'label' => $current->getTitle(),
+                    'url' => 'app_page_show',
+                    'params' => ['slug' => $current->getSlug()],
+                ];
+
+                if ($current->getParentId() === null) {
+                    break;
+                }
+
+                $current = $this->pageRepository->findActiveById($current->getParentId());
+            }
+
+            $trail = array_reverse($trail);
+
+            // Les pages de 2e niveau ont souvent parentId = null : on rattache
+            // explicitement la page racine de la section (ex. Musicienne > Pianiste).
+            $rootSlug = $this->sectionRootSlug($page->getSection());
+            if ($rootSlug !== null && $page->getSlug() !== $rootSlug) {
+                $root = $this->pageRepository->findActiveBySlug($rootSlug);
+                if ($root !== null && ($trail[0]['params']['slug'] ?? null) !== $rootSlug) {
+                    array_unshift($trail, [
+                        'label' => $root->getTitle(),
+                        'url' => 'app_page_show',
+                        'params' => ['slug' => $root->getSlug()],
+                    ]);
+                }
+            }
+        } catch (\Throwable) {
+            $trail = [[
+                'label' => $page->getTitle(),
+                'url' => 'app_page_show',
+                'params' => ['slug' => $page->getSlug()],
+            ]];
+        }
+
+        array_unshift($trail, [
+            'label' => 'Accueil',
+            'url' => 'app_home',
+            'params' => [],
+        ]);
+
+        return $trail;
+    }
+
+    /**
+     * Retourne le slug de la page racine d'une section (ou null si inconnue).
+     */
+    private function sectionRootSlug(string $section): ?string
+    {
+        foreach (self::MAIN_ITEMS as $item) {
+            if (($item['section'] ?? null) === $section) {
+                return $item['root'] ?? null;
+            }
+        }
+
+        return null;
     }
 
     private function buildSubChildren(int $parentId, array $byParent): array

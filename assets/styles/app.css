@@ -4,6 +4,7 @@
     --navbg: #456585;
     --navtext: #f1f1f1;
     --navhover: #387cc0; 
+    --link-hover: #d4a729;
     --badgebg: #819ebb;
     --badgeborder: #456599;
     --badgeshadow: #557595;
@@ -104,7 +105,8 @@ img {
 
 .navigation li a:hover {
   background-color: var(--navhover);
-  border-radius: 30px 30px 60px 60px / 60px 60px 30px 30px;
+  /*border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;*/
+  border-radius: 40% 40% 40% 40%;
 }
 
 /* Élément de menu sans lien : sert uniquement à ouvrir le sous-menu */
@@ -173,8 +175,10 @@ img {
 /* Lien de navigation actif */
 .navigation li a.active {
   background-color: var(--navhover);
-  border-radius: 30px 30px 60px 60px / 60px 60px 30px 30px;
+  /*border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;*/
+  border-radius: 20%;
   font-weight: 600;
+  height: 50px;
 }
 
 /* ---------- MENU DÉROULANT (au survol) ---------- */
@@ -359,10 +363,10 @@ img {
   z-index: 2;
 }
 
-.mandala-q1 { top: 0; left: 0; }
-.mandala-q2 { top: 0; right: 0; }
-.mandala-q3 { bottom: 0; left: 0; }
-.mandala-q4 { bottom: 0; right: 0; }
+.mandala-q1 { top: 0; left: 0; border-radius: 100% 0 0 0; }
+.mandala-q2 { top: 0; right: 0; border-radius: 0 100% 0 0; }
+.mandala-q3 { bottom: 0; left: 0; border-radius: 0 0 0 100%; }
+.mandala-q4 { bottom: 0; right: 0; border-radius: 0 0 100% 0; }
 
 .mandala-quadrant:hover {
   background-color: rgba(255, 255, 255, 0.14);
@@ -677,6 +681,66 @@ img {
 /* Les images des galeries sont cliquables (lightbox) */
 .gallery img { cursor: pointer; }
 
+/* ---------- FIL D'ARIANE ---------- */
+.fil-ariane {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: 1rem 0 0.5rem;
+  padding: 0.35rem 0.9rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+}
+
+.fil-ariane-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.fil-ariane-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.fil-ariane-item:not(:last-child)::after {
+  content: '›';
+  margin-left: 0.5rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.fil-ariane-item a {
+  display: inline-block;
+  max-width: 18ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--navbg);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.fil-ariane-item a:hover {
+  color: var(--link-hover);
+}
+
+.fil-ariane-current span {
+  display: inline-block;
+  max-width: 18ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
 /* ---------- LIENS / BOUTONS ---------- */
 a {
   color: var(--navbg);
@@ -684,7 +748,7 @@ a {
 }
 
 a:hover {
-  color: var(--navhover);
+  color: var(--link-hover);
 }
 
 .lien-gauche { justify-content: flex-start !important; }
@@ -698,6 +762,18 @@ a:hover {
 
 .lien-petit { font-size: 0.85em !important; }
 .lien-gros  { font-size: 1.15em !important; }
+
+/* Liens du bloc « liens » : ombre pour montrer qu'ils sont cliquables */
+.bloc-liens a {
+  padding: 0.35em 0.9em;
+  border-radius: 999px;
+  box-shadow: 0 2px 10px rgba(13, 20, 60, 0.18);
+  transition: color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.bloc-liens a:hover {
+  box-shadow: 0 4px 16px rgba(212, 167, 41, 0.45);
+}
 
 /* Boutons colorés en français (fonctionnent seuls ou avec "btn") */
 .btn-bleu, .btn-vert, .btn-rouge, .btn-jaune, .btn-gris, .btn-cyan {
